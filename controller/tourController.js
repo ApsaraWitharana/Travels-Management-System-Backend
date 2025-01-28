@@ -63,18 +63,39 @@ export const deleteTour = async (req,res) =>{
 
 // get tour
 export const getSingleTour = async (req,res) =>{
+    const id = req.params.id
     try {
+      const tour = await Tour.findById(id);
+
+        res.status(200).json({
+            success: true,
+            message: 'Successfully getSingle tours',
+            data:tour,
+        });
 
     }catch (err){
-
+        res.status(404).json({
+            success: false,
+            message: 'Failed to getSingle tours. Try again',
+        });
     }
 };
 
 // get All tour
 export const getAllTour = async (req,res) =>{
     try {
+        const tours = await Tour.find({})
+
+        res.status(200).json({
+            success: true,
+            message: 'Successfully getAll tours',
+            data:tours,
+        });
 
     }catch (err){
-
+        res.status(404).json({
+            success: false,
+            message: 'Failed to getAll tours. Try again',
+        });
     }
 };
