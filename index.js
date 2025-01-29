@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import cookieParser from 'cookie-parser';
 import cors from "cors";
 import tourRoute from './routes/tour.js';
+import userRoute from './routes/user.js';
 
 dotenv.config();
 const app = express();
@@ -30,6 +31,7 @@ app.use(cookieParser());
 
 // Routes
 app.use('/tours', tourRoute);
+app.use('/user',userRoute);
 
 // Start the server
 app.listen(port, () => {

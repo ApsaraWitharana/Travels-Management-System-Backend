@@ -1,6 +1,4 @@
 import Tour from '../model/Tour.js';
-import req from "express/lib/request.js";
-import res from "express/lib/response.js";
 
 // create tour
 
