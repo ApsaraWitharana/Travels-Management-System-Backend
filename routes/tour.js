@@ -2,9 +2,9 @@ import express from "express";
 import {
     createTour,
     deleteTour,
-    getAllTour,
+    getAllTour, getFeaturedTour,
     getSingleTour,
-    getTourBySearch,
+    getTourBySearch, getTourCount,
     updateTour
 } from "../controller/tourController.js";
 
@@ -27,4 +27,11 @@ router.get('/', getAllTour);
 
 //Search tour
 router.get('/search/getTourBySearch', getTourBySearch);
+
+//get featured tour
+router.get('/search/getFeaturedTours', getFeaturedTour);
+
+// get getTourCount
+router.get('/search/getTourCount', getTourCount);
+
 export default router;
