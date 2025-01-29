@@ -83,11 +83,17 @@ export const getSingleTour = async (req,res) =>{
 
 // get All tour
 export const getAllTour = async (req,res) =>{
+    //for pagination
+    const page = parseInt(req.query.page)
+    console.log(page);
     try {
         const tours = await Tour.find({})
-
+        //skip the only 8 pages rendering getall
+            // .skip(page*8)
+            // .limit(8)
         res.status(200).json({
             success: true,
+            count:tours.length,
             message: 'Successfully getAll tours',
             data:tours,
         });
@@ -99,3 +105,32 @@ export const getAllTour = async (req,res) =>{
         });
     }
 };
+
+//get tour by search
+export const getTourBySearch = async (req,res)=>{
+    //here 'i' means case sensitive
+
+    const city = new RegExp(req.query.city,'i')
+    const distance = parseInt(req.query.distance)
+    const maxGroupSize = parseInt(req.query.maxGroupSize)
+
+    try {
+        //get means greater than equal
+
+        const tours = await Tour.find({city,distance: {$gte:distance},
+        maxGroupSize: {$gte:maxGroupSize},
+        });
+
+        res.status(200).json({
+            success: true,
+            message: 'Successfully search tour',
+            data:tours,
+        });
+    }catch (err){
+        res.status(404).json({
+            success: false,
+            message: 'Failed to getAll tours. Try again',
+        });
+
+    }
+}
