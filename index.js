@@ -4,7 +4,9 @@ import mongoose from "mongoose";
 import cookieParser from 'cookie-parser';
 import cors from "cors";
 import tourRoute from './routes/tour.js';
-import userRoute from './routes/user.js';
+import userRoute from './routes/user.js'
+import authRoute from './routes/auth.js';
+
 
 dotenv.config();
 const app = express();
@@ -29,7 +31,9 @@ app.use(express.json());
 app.use(cors());
 app.use(cookieParser());
 
+
 // Routes
+app.use('/auth', authRoute);
 app.use('/tours', tourRoute);
 app.use('/user',userRoute);
 
