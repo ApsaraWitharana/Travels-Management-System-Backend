@@ -6,11 +6,17 @@ import cors from "cors";
 import tourRoute from './routes/tour.js';
 import userRoute from './routes/user.js'
 import authRoute from './routes/auth.js';
+import reviewRoute from './routes/reviews.js';
 
 
 dotenv.config();
 const app = express();
 const port = process.env.PORT || 8080;
+
+const corsOptions = {
+    origin:true,
+    credentials:true
+}
 
 // Database connection
 mongoose.set('strictQuery', false);
@@ -28,14 +34,17 @@ const connect = async () => {
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(cookieParser());
 
 
 // Routes
-app.use('/auth', authRoute);
-app.use('/tours', tourRoute);
-app.use('/user',userRoute);
+app.use('/api/v1/auth', authRoute);
+app.use('/api/v1/tours', tourRoute);
+app.use('/api/v1/user',userRoute);
+app.use('/api/v1/review',reviewRoute);
+
+
 
 // Start the server
 app.listen(port, () => {
