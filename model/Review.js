@@ -14,13 +14,20 @@ const reviewSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    rating: {
-      type: Number,
-      required: true,
-      min: 0,
-      max: 5,
-      default: 0,
-    },
+      rating: {
+          type: Number,
+          required: true
+      },
+      userId: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User', // Make sure this points to the User model
+          required: true
+      },
+      tour: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Tour', // Make sure this points to the Tour model
+          required: true
+      }
   },
   { timestamps: true }
 );

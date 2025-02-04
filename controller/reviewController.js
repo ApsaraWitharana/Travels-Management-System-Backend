@@ -52,3 +52,49 @@ export const createReview = async (req, res) => {
         });
     }
 };
+
+//get reviews
+export const getAllReviews = async (req, res) => {
+    try {
+        const reviews = await Review.find({})
+        res.status(200).json({
+            success: true,
+            data: reviews,
+        });
+    } catch (err) {
+        console.error("Error fetching reviews:", err);
+        res.status(500).json({
+            success: false,
+            message: "Failed to retrieve reviews",
+        });
+
+    }
+};
+
+export const getReviews = async (req, res) => {
+    const tourId = req.params.tourId; // Get tourId from request parameters
+
+    // Validate tourId
+    if (!tourId) {
+        return res.status(400).json({
+            success: false,
+            message: "Tour ID is required",
+        });
+    }
+
+    try {
+
+        const reviews = await Review.find({ tour: tourId }).populate("userId", "username");
+
+        res.status(200).json({
+            success: true,
+            data: reviews,
+        });
+    } catch (err) {
+        console.error("Error fetching reviews:", err);
+        res.status(500).json({
+            success: false,
+            message: "Failed to retrieve reviews",
+        });
+    }
+};
