@@ -1,38 +1,46 @@
-import express from "express";
+// routes/tourRoutes.js
+import express from 'express';
 import {
     createTour,
+    updateTour,
     deleteTour,
-    getAllTour, getFeaturedTour,
     getSingleTour,
-    getTourBySearch, getTourCount,
-    updateTour
-} from "../controller/tourController.js";
-import {verifyAdmin} from "../utils/verifyToken.js";
+    getAllTour,
+    getTourBySearch,
+    getFeaturedTour,
+    getTourCount,
+    getAllAdminTour
+} from '../controller/tourController.js';
+import upload from '../utils/multerConfig.js';
 
 const router = express.Router();
 
 // Create new tour
-router.post('/',verifyAdmin, createTour);
+router.post('/', upload.single('photo'), createTour);
 
-// Update new tour
-router.put('/:id',verifyAdmin, updateTour);
+// Update tour
+router.put('/:id', upload.single('photo'), updateTour);
 
-// Delete new tour
-router.delete('/:id',verifyAdmin, deleteTour);
+// Delete tour
+router.delete('/:id', deleteTour);
 
-// Get new tour
+// Get single tour
 router.get('/:id', getSingleTour);
 
-// Get All new tour
+// Get all tours
 router.get('/', getAllTour);
 
-//Search tour
+//Get all Admin tours
+router.get('/new', getAllAdminTour);
+
+
+// Search tour
 router.get('/search/getTourBySearch', getTourBySearch);
 
-//get featured tour
+// Get featured tours
 router.get('/search/getFeaturedTours', getFeaturedTour);
 
-// get getTourCount
-router.get('/search/getTourCount',  getTourCount);
+// Get tour count
+router.get('/search/getTourCount', getTourCount);
 
 export default router;
